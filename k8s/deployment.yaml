@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubesecure-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kubesecure-app
+  template:
+    metadata:
+      labels:
+        app: kubesecure-app
+    spec:
+      containers:
+      - name: app
+        image: kubesecure-app:1.0
+        imagePullPolicy: IfNotPresent
+
+        ports:
+        - containerPort: 8000
+
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+
+          limits:
+            memory: "256Mi"
+            cpu: "250m"

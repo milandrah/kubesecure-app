@@ -1,0 +1,11 @@
+app:
+  name: kubesecure-app
+  replicas: 2
+
+image:
+  repository: kubesecure-app
+  tag: "1.0"
+  pullPolicy: IfNotPresent
+
+service:
+  name: kubesecure-service
