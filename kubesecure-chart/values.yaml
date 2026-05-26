@@ -1,6 +1,7 @@
 app:
   name: kubesecure-app
   replicas: 2
+  namespace: app
 
 image:
   repository: ghcr.io/milandrah/kubesecure-app

@@ -3,6 +3,7 @@ kind: Deployment
 
 metadata:
   name: {{ .Values.app.name }}
+  namespace: {{ .Values.namespace }}
 
 spec:
   replicas: {{ .Values.app.replicas }}

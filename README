@@ -1,0 +1,1 @@
+Falco runtime security tooling was evaluated during the project, but local WSL2/k3d kernel limitations reduced eBPF observability support.
