@@ -27,15 +27,23 @@ spec:
           ports:
             - containerPort: 8000
 
+          env:
+            - name: PYTHONDONTWRITEBYTECODE
+              value: "1"
+
           readinessProbe:
             httpGet:
               path: /health
               port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
 
           livenessProbe:
             httpGet:
               path: /health
               port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 20
 
           resources:
             requests:
@@ -45,3 +53,15 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "250m"
+
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            allowPrivilegeEscalation: false
+
+            capabilities:
+              drop:
+                - ALL
+
+            seccompProfile:
+              type: RuntimeDefault
