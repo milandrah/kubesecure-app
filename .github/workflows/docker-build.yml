@@ -53,6 +53,7 @@ jobs:
         run: |
           trivy image \
             --severity HIGH,CRITICAL \
+            --ignorefile .trivyignore \
             --exit-code 1 \
             ghcr.io/${{ secrets.GHCR_USERNAME }}/kubesecure-app:latest
 

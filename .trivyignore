@@ -1,0 +1,3 @@
+# ncurses vulnerability not exploitable in current workload
+# no upstream fix available
+CVE-2025-69720
