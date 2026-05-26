@@ -14,7 +14,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-      security-events: write
 
     steps:
 
@@ -34,6 +33,28 @@ jobs:
       - name: Build image
         run: |
           docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/kubesecure-app:latest .
+
+      - name: Install Trivy
+        run: |
+          sudo apt-get update
+          sudo apt-get install wget apt-transport-https gnupg lsb-release -y
+
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | \
+          gpg --dearmor | \
+          sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
+
+          echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main" | \
+          sudo tee /etc/apt/sources.list.d/trivy.list
+
+          sudo apt-get update
+          sudo apt-get install trivy -y
+
+      - name: Run Trivy scan
+        run: |
+          trivy image \
+            --severity HIGH,CRITICAL \
+            --exit-code 1 \
+            ghcr.io/${{ secrets.GHCR_USERNAME }}/kubesecure-app:latest
 
       - name: Push image
         run: |
