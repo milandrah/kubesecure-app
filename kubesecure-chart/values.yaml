@@ -3,9 +3,9 @@ app:
   replicas: 2
 
 image:
-  repository: kubesecure-app
-  tag: "1.0"
-  pullPolicy: IfNotPresent
+  repository: ghcr.io/milandrah/kubesecure-app
+  tag: latest
+  pullPolicy: Always
 
 service:
   name: kubesecure-service
