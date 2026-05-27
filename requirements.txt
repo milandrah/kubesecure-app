@@ -1,3 +1,5 @@
 fastapi
 uvicorn
 prometheus-client
+sqlalchemy
+psycopg2-binary
